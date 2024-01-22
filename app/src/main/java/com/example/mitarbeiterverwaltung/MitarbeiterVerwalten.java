@@ -89,6 +89,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
             String nM = "M" + String.format("%03d", count + 1);
             database.child(nM).child("name").setValue(etName.getText().toString());
             database.child(nM).child("key").setValue(generateKey());
+            database.child(nM).child("UID").setValue("");
             dialog.dismiss();
             etName.setText("");
         });
