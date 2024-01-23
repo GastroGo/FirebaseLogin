@@ -158,7 +158,7 @@ public class Einstellungen extends AppCompatActivity {
                                         String uid = sRef.getUserId();
                                         DataSnapshot snap = dataSnapshot.child(parentKey).child(childKey).child("UID");
                                         String idc = snap.getValue(String.class);
-                                        if (idc.equals("")) {
+                                        if (idc.equals("") | idc.equals(uid)) {
                                             Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
                                             intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
                                             startActivity(intent);
