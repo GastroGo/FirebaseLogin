@@ -6,6 +6,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorOnPrimary">@color/light_third</item>
         <item name="colorOnSecondary">@color/light_second</item>
-        <item name="android:windowBackground">@color/gray</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 </resources>
