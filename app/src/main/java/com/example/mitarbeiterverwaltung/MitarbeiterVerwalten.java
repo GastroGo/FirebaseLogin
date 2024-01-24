@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +59,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.mitarbeiter_verwalten);
         String restaurantId = getIntent().getStringExtra("restaurantId");
 
@@ -66,6 +68,8 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
+
+
 
         dialog = new Dialog(MitarbeiterVerwalten.this);
         dialog.setContentView(R.layout.m_anlegen);
@@ -126,5 +130,14 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         });
 
 
+    }
+    public void applyDarkMode() {
+        com.example.login.Model model = com.example.login.Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

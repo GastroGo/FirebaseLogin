@@ -1,6 +1,7 @@
 package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
@@ -19,12 +20,15 @@ public class EmployeesView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_employees_view);
 
         settings = findViewById(R.id.settingButtonEmployees);
         user = findViewById(R.id.toUserPage);
         work = findViewById(R.id.toWorkersPage);
         back = findViewById(R.id.btn_back);
+
+
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
@@ -69,5 +73,15 @@ public class EmployeesView extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

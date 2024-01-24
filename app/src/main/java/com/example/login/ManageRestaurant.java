@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
@@ -40,6 +41,7 @@ public class ManageRestaurant extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_manage_restaurant);
         schluessel = findViewById(R.id.buttonEmployeeKeys);
         name = findViewById(R.id.text);
@@ -50,6 +52,7 @@ public class ManageRestaurant extends AppCompatActivity {
         back = findViewById(R.id.btn_back);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -189,5 +192,14 @@ public class ManageRestaurant extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

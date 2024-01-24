@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -40,11 +41,14 @@ public class Einstellungen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_einstellungen);
         schluesselEingabe = findViewById(R.id.schluesselEingabe);
         benachrichtigungen = findViewById(R.id.benachrichtigungen);
         darkmode = findViewById(R.id.darkmode);
         spinner_languages = findViewById(R.id.spinner_languages);
+
+
 
         gMap = MapHolder.getInstance().getGoogleMap();
 
@@ -67,16 +71,6 @@ public class Einstellungen extends AppCompatActivity {
         setupListeners();
         loadModelData();
 
-        FloatingActionButton mitarbeiterLogin = findViewById(R.id.mitarbeiterLogin);
-
-        // Überprüfen Sie den Zustand des FloatingActionButton
-        if (!mitarbeiterLogin.isEnabled()) {
-            // Wenn der Button deaktiviert ist, ändern Sie die Farbe auf Grau
-            mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
-        } else {
-            // Wenn der Button aktiviert ist, ändern Sie die Farbe auf die ursprüngliche Farbe
-            mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.light_third)));
-        }
     }
 
     private void setupListeners() {
@@ -121,7 +115,7 @@ public class Einstellungen extends AppCompatActivity {
         model.load(this);
 
         benachrichtigungen.setChecked(model.getBenachrichtigungen() == 1);
-        darkmode.setChecked(model.getDarkmode() == 1);
+        darkmode.setChecked(model.getDarkmode());
         spinner_languages.setSelection(model.getLanguage());
         schluesselEingabe.setText(model.getSchluessel());
     }
@@ -158,12 +152,18 @@ public class Einstellungen extends AppCompatActivity {
                                         String uid = sRef.getUserId();
                                         DataSnapshot snap = dataSnapshot.child(parentKey).child(childKey).child("UID");
                                         String idc = snap.getValue(String.class);
-                                        if (idc.equals("") | idc.equals(uid)) {
+                                        if (idc.equals("")) {
                                             Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
                                             intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
                                             startActivity(intent);
                                             ref.child(parentKey).child(childKey).child("UID").setValue(uid);
-                                        } else {
+                                        }
+                                        else if (idc.equals(uid)) {
+                                            Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                            intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
+                                            startActivity(intent);
+                                        }
+                                        else {
                                             Toast.makeText(Einstellungen.this, "Schlüssel bereits verwendet", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -197,8 +197,9 @@ public class Einstellungen extends AppCompatActivity {
 
     private void onDarkModeChanged(CompoundButton buttonView, boolean isChecked) {
         Model model = Model.getInstance();
-        model.setDarkmode(isChecked ? 1 : 0);
+        model.setDarkmode(isChecked);
         model.save(this);
+    applyDarkMode();
     }
 
     private void onBenachrichtigungenChanged(CompoundButton buttonView, boolean isChecked) {
@@ -211,6 +212,15 @@ public class Einstellungen extends AppCompatActivity {
         Model model = Model.getInstance();
         model.setLanguage(language);
         model.save(this);
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import com.example.DBKlassen.Gericht;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.login.DropdownManager;
+import com.example.login.Model;
 import com.example.login.Tisch;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,9 +43,11 @@ public class BestellungenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_tisch_bestellungen);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
         TextView title = findViewById(R.id.text);
+
 
         btnClosed = findViewById(R.id.btn_bestellungen_geschl);
         btnOpen = findViewById(R.id.btn_bestellungen_offen);
@@ -125,6 +129,15 @@ public class BestellungenActivity extends AppCompatActivity {
             btnOpen.setTextColor(Color.BLACK);
             btnClosed.setBackgroundResource(R.drawable.roundstyle);
             btnOpen.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 

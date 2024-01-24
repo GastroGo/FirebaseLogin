@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 
 import com.example.login.DropdownManager;
+import com.example.login.Model;
 import com.example.login.R;
 import com.example.login.Tisch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,11 +47,14 @@ public class PdfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_pdf);
         restaurantId = getIntent().getStringExtra("restaurantId");
         back = findViewById(R.id.btn_back);
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tisch QR-Codes");
+
+
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
@@ -216,6 +221,15 @@ public class PdfActivity extends AppCompatActivity {
 
         canvas.drawText(finaleNumber, textX, textY, paint);
         return resultBitmap;
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }

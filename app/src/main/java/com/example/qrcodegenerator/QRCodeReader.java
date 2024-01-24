@@ -13,9 +13,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import com.example.login.DropdownManager;
+import com.example.login.Model;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -61,10 +63,13 @@ public class QRCodeReader extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_main);
         initViews();
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tisch QR Code scannen");
+
+
 
         back = findViewById(R.id.btn_back);
         back.setOnClickListener(v -> {
@@ -240,5 +245,14 @@ public class QRCodeReader extends AppCompatActivity {
 
     interface Callback {
         void onComplete();
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
 import com.example.login.DropdownManager;
+import com.example.login.Model;
 import com.example.login.R;
 import com.example.login.Tisch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,10 +45,13 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyDarkMode();
         setContentView(R.layout.activity_tische);
         restaurantId = getIntent().getStringExtra("restaurantId");
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tische");
+
+
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
@@ -98,5 +103,14 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         intent.putExtra("restaurantId", restaurantId);
 
         startActivity(intent);
+    }
+    public void applyDarkMode() {
+        Model model = Model.getInstance();
+        model.load(this);
+        if (model.getDarkmode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }
