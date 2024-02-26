@@ -10,7 +10,6 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -110,7 +109,11 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         dropdownManager.setupDropdown();
 
         if (employee) {
-            checkKey();
+            SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+            String inputKey = sharedPreferences.getString("KEY_SCHLUESSEL", "");
+            if (!inputKey.equals("")) {
+                checkKey();
+            }
         }
     }
 
@@ -145,7 +148,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                                     if (childRef != null) {
                                         String parentKey = childRef.getKey();
                                         Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
-                                        employee= true;
+                                        employee = true;
                                         intent.putExtra("restaurantId", parentKey); //Übergabe der RestaurantId
                                         startActivity(intent);
                                         overridePendingTransition(0, 0);
@@ -249,8 +252,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         float preLoadZoomLevel = 12;
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(preLoadLatLng, preLoadZoomLevel));
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
@@ -269,7 +271,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
         });
     }
-
 
 
     @Override
@@ -296,9 +297,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                         String address = daten.getStrasse() + " " + daten.getHausnr() + ", " + daten.getPlz() + " " + daten.getOrt();
                         LatLng latLng = getLatLngFromAddress(address);
                         if (latLng != null) {
-                            Marker marker = gMap.addMarker(new MarkerOptions()
-                                    .position(latLng)
-                                    .title(daten.getName()));
+                            Marker marker = gMap.addMarker(new MarkerOptions().position(latLng).title(daten.getName()));
                             allMarkers.add(marker);
                         }
                     }
@@ -328,6 +327,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
         return latLng;
     }
+
     public void applyDarkMode() {
         Model model = Model.getInstance();
         model.load(this);

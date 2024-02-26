@@ -1,20 +1,20 @@
-<resources xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Login" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item> <!-- Primary text color -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item> <!-- Menu bar color -->
-        <item name="colorAccent">@color/colorAccent</item> <!-- Secondary text color -->
-        <item name="android:statusBarColor">@color/light_third</item> <!-- Top gradient color -->
-        <item name="android:navigationBarColor">@color/black
-        </item> <!-- Bottom gradient color -->
-        <item name="android:windowBackground">@color/windowBackground
-        </item> <!-- Background color -->
-    </style>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.Login" parent="Base.Theme.Login" />
+    <style name="Base.Theme.Login" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/light_third</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:textColorPrimary">@color/light_second</item>
+    </style>
 
     <style name="RoundedDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
+    </style>
+
+    <style name="TextSecondary" parent="@android:style/TextAppearance">
+        <item name="android:textColorPrimary">@color/light_second</item>
     </style>
 </resources>

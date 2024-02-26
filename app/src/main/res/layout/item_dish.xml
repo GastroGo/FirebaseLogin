@@ -4,8 +4,8 @@
     android:id="@+id/gerichtLayout"
     android:layout_width="match_parent"
     android:layout_height="95dp"
-    android:layout_marginTop="5dp"
     android:layout_marginStart="8dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="16dp"
     app:cardCornerRadius="8dp"
@@ -16,71 +16,71 @@
         android:layout_height="95dp"
         android:layout_marginTop="5dp"
         android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="30dp">
 
-        <TextView
-            android:id="@+id/dish_name"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Name"
-            android:textColor="@color/light_third"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/dish_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="9dp"
-            android:text="Preis"
-            android:textColor="@color/light_third" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textViewAdditionalInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
             android:paddingLeft="15dp"
-            android:text="Zutaten"
-            android:textColor="#5A7A62" />
+            android:paddingRight="30dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonEditDish"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:backgroundTint="@color/light_second"
-            android:outlineSpotShadowColor="@color/zxing_transparent"
-            android:src="@drawable/ic_edit"
-            app:borderWidth="0dp"
-            app:fabCustomSize="30dp" />
+            <TextView
+                android:id="@+id/dish_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textColor="@color/light_third"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonDeleteDish"
-            android:layout_width="30dp"
+            <TextView
+                android:id="@+id/dish_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="9dp"
+                android:text="Preis"
+                android:textColor="@color/light_third" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:backgroundTint="@color/light_second"
-            android:outlineSpotShadowColor="@color/zxing_transparent"
-            android:src="@drawable/ic_delete"
-            app:borderWidth="0dp"
-            app:fabCustomSize="30dp" />
-    </LinearLayout>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewAdditionalInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:text="Zutaten" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonEditDish"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="@color/light_second"
+                android:outlineSpotShadowColor="@color/zxing_transparent"
+                android:src="@drawable/ic_edit"
+                app:borderWidth="0dp"
+                app:fabCustomSize="30dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonDeleteDish"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="@color/light_second"
+                android:outlineSpotShadowColor="@color/zxing_transparent"
+                android:src="@drawable/ic_delete"
+                app:borderWidth="0dp"
+                app:fabCustomSize="30dp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
